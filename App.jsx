@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import { useState } from 'react';
 import React from 'react';
 
@@ -34,7 +34,7 @@ export default function App() {
       <Text style={styles.text}>Adicionar</Text>
     </TouchableOpacity>
   </View>
-  <View style={styles.container2}>
+  <ScrollView style={styles.container2}>
   {tasks.length === 0 ? (
     <Text style={styles.textRed}>Nenhuma Tarefa Cadastrada</Text>
   ) : (
@@ -42,16 +42,16 @@ export default function App() {
   )}
   {
     tasks.map((task) => (
-      <View key={task.id} style={styles.form}>
+      <View key={task.id} style={styles.listitem}>
         <Text>{task.value}</Text>
-        <TouchableOpacity style={styles.button} onPress={removeTask.bind(this, task.id)}>
+        <TouchableOpacity style={styles.buttonRemove} onPress={() =>removeTask(task.id)}>
           <Text style={styles.text}>Remover</Text>
         </TouchableOpacity>
       </View>
     ))
   
   }
-</View>
+</ScrollView>
   <StatusBar style="auto" />
 </View>
   );
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'blue',
-    padding: 2,
+    padding: 12,
     borderRadius: 4,
   },
   text: {
@@ -96,4 +96,19 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 18,
   },
+  buttonRemove: {
+    backgroundColor: 'red',
+    padding: 12,
+    borderRadius: 4,
+  },
+  listitem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 6,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1, 
+    marginBottom: 6,
+  },
+
 });
